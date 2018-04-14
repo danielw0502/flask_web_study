@@ -1,0 +1,113 @@
+<!-- 用户资料页面  -->
+
+{% extends "base.html" %}
+
+{% import "_macros.html" as macros %}
+
+{% block title %}LinuxHub - {{ user.username }}{% endblock %}
+
+{% block page_content %}
+
+<div class="page-header">
+
+<!-- 显示gravatar头像 -->
+<img class="img-rounded profile-thumbnail" src="{{ user.gravatar(size=256) }}">
+
+<div class="profile-header">
+<h1>{{ user.username }}</h1>
+
+{% if user.name or user.location %}
+
+              <p>
+              
+              <!-- 真实姓名 -->
+              {% if user.name  %}
+                            {{ user.name }}
+              {% endif %}
+              
+              <!-- 所在地  用户的location字段被渲染成指向badu地图的查询链接 -->
+              {% if user.location %}
+                           来自 <a href="http://maps.baidu.com/?q={{ user.location }}" target="_blank" >{{ user.location}} </a>
+              {% endif %}
+              </p>
+{% endif %}
+
+
+<!--  如果是是管理员用户登录, 则显示用户的电子邮件地址, 并渲染成maito链接 -->
+{% if current_user.is_administrator() %}
+              <p>
+              <a href="mailto:{{ user.email }}">{{ user.email }}</a>
+              </p>
+{% endif %}
+
+
+
+<!--  自我介绍   -->
+{% if user.about_me %}
+              <p>
+              {{ user.about_me }}              
+              </p>
+{% endif %}
+
+
+<p> 
+注册日期:  {{ moment(user.member_since).format('L') }}. 
+</br>
+最后访问日期: {{ moment(user.last_seen).fromNow() }}.
+</p>
+
+
+<p>发表文章数: {{  user.posts.count() }} </p>
+<p>评论: {{  user.comments.count() }}</p>
+
+<p>
+<!-- 关注信息 start  -->
+{% if current_user.can(Permission.FOLLOW) and user != current_user %}
+              {% if not current_user.is_following(user) %}
+                            <a href="{{ url_for('.follow', username=user.username) }}" class="btn btn-primary">关注</a>              
+              {% else %}
+                            <a href="{{ url_for('.unfollow', username=user.username) }}" class="btn btn-default">取消关注</a>
+              {% endif %}
+{% endif %}
+
+<!-- 显示用户的关注数, 点击关注 跳转到用户的关注用户页面 -->
+<a href="{{ url_for('.followed_by', username=user.username)}}">关注：<span class="badge">{{ user.followed.count() -1 }}</span></a>
+
+<!-- 显示用户的粉丝, 点击粉丝 跳转到用户的粉丝用户页面 -->
+<a href="{{ url_for('.followers', username=user.username) }}">粉丝：<span class="badge">{{ user.followers.count() -1 }}</span></a>      
+
+{% if current_user.is_authenticated() and user != current_user and user.is_following(current_user) %}
+              | <span class="label label-default">他关注了你</span>
+{% endif %}
+
+
+<!-- 关注信息 end -->
+</p>
+
+
+
+<!-- 资料编辑的链接 -->
+<p>
+{% if user == current_user %}
+<a class="btn btn-default" href="{{ url_for('.edit_profile') }}">编辑资料 </a>
+{% endif %}
+</p>
+<p>
+<!-- 管理员使用的资料编辑链接  -->
+{% if current_user.is_administrator() %}
+<a class="btn btn-danger" href="{{ url_for('.edit_profile_admin', id=user.id) }}">编辑资料 [管理员]</a>
+{% endif %}     
+</p>
+
+</div>
+
+</div>
+
+
+<h3>{{ user.username }}发表的博客文章 </h3>
+{% include '_posts.html' %}
+
+{% endblock %}
+
+
+
