@@ -20,11 +20,11 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['MAIL_SERVER'] = 'smtp.163.com'
 app.config['MAIL_PORT'] = '25'
 app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USERNAME'] = 'wangxianda920502@163.com'
-app.config['MAIL_PASSWORD'] = 'wxd920502'
+app.config['MAIL_USERNAME'] = 'xxx@163.com'
+app.config['MAIL_PASSWORD'] = 'xxx'
 app.config['FLASKY_MAIL_SUBJECT_PREFIX'] = '[Flasky]'
-app.config['FLASKY_MAIL_SENDER'] = 'flasky Admin <wangxianda920502@163.com>'
-app.config['FLASKY_ADMIN'] = '1476784494@qq.com'
+app.config['FLASKY_MAIL_SENDER'] = 'flasky Admin <xxx@163.com>'
+app.config['FLASKY_ADMIN'] = 'xxx@qq.com'
 
 bootstrap = Bootstrap(app)
 moment = Moment(app)
