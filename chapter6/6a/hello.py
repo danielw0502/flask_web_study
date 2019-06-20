@@ -26,13 +26,13 @@ app.config['MAIL_SERVER'] = 'smtp.163.com'   #163邮件smtp
 app.config['MAIL_PORT'] = 465                #163邮件端口
 app.config['MAIL_USE_TLS'] = False           #TLS协议
 app.config['MAIL_USE_SSL'] = True            #SSL协议(启用)
-app.config['MAIL_USERNAME'] = 'wangxianda920502@163.com'    # 163邮件 用户名
-app.config['MAIL_PASSWORD'] = 'WANGwang920502!+'    # 163邮件 密码
+app.config['MAIL_USERNAME'] = 'xxx@163.com'    # 163邮件 用户名
+app.config['MAIL_PASSWORD'] = 'xxx'    # 163邮件 密码
 #app.config['ADMINS'] = 'zepingmon@163.com'  # 发件人
 
 app.config['FLASKY_MAIL_SUBJECT_PREFIX'] = '[Flasky]'                  #主题前缀
-app.config['FLASKY_MAIL_SENDER'] = 'Flasky Admin <wangxianda920502@163.com>'  #发件人
-app.config['FLASKY_ADMIN'] = '1476784494@qq.com'                       #收件人
+app.config['FLASKY_MAIL_SENDER'] = 'Flasky Admin <xxx@163.com>'  #发件人
+app.config['FLASKY_ADMIN'] = 'xxx@qq.com'                       #收件人
 
 
 #初始化Mail对象连接smtp服务器
